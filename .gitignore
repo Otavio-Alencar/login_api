@@ -1,0 +1,55 @@
+# Logs e arquivos do sistema
+*.log
+*.lock
+*.pid
+*.seed
+*.bak
+*.swp
+
+# Diretórios do sistema
+.DS_Store
+Thumbs.db
+
+# Dependências do PHP
+vendor/
+composer.lock
+
+# Configurações do ambiente
+.env
+.env.local
+.env.*
+!.env.example
+
+# Docker
+docker-compose.override.yml
+**/docker-compose.override.yml
+**/docker-compose.*.yml
+**/.docker/
+**/docker-volumes/
+**/docker-data/
+
+# Cache e sessão do PHP
+storage/framework/cache/
+storage/framework/sessions/
+storage/framework/views/
+storage/logs/
+
+# MySQL 
+mysql/
+*.sql
+dump.sql
+
+# Arquivos temporários
+tmp/
+.cache/
+
+# Apache
+apache/logs/
+apache/cache/
+
+
+# Outros
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace

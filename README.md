@@ -1,10 +1,10 @@
 # **Sistema de login com PHP puro**
 
-## MYSQL | JWT | HTTP METHODS | DOCKER
+### MYSQL | JWT | HTTP METHODS | DOCKER
 
-### Comandos para funcionamento
+#### Comandos para funcionamento
 
-#### No seu terminal linux ou wsl digite
+##### No seu terminal linux ou wsl digite
 ```
     docker compose up
 ```

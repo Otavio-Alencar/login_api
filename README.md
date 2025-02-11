@@ -6,5 +6,6 @@
 
 ##### No seu terminal linux ou wsl digite
 ```
+`#ffffff`
     docker compose up
 ```

@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 # Habilita o módulo rewrite do Apache
 RUN a2enmod rewrite
 
-# Instala o Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN chmod +x /usr/local/bin/composer
 
 # Define o diretório de trabalho
 WORKDIR /var/www/html

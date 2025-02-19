@@ -5,10 +5,14 @@
 ![Docker](https://img.shields.io/badge/Docker-✔-blue?style=for-the-badge&logo=docker)
 
 
+---
+</br>
 
 ### Comandos para funcionamento
 > [!IMPORTANT]
 > A unica ferramenta que o usuário deve ter em sua máquina para o funcionamento desse projeto é o docker.
+### Comandos para funcionamento
+
 ##### No seu terminal linux ou wsl digite
 ```bash
     docker compose up

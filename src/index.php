@@ -1,9 +1,10 @@
 <?php
-    require_once('./vendor/autoload.php');
+    require_once __DIR__ .'/vendor/autoload.php';
+    
+    require_once __DIR__ .'/mvc/routes/main.php';
+
+    use App\Core\Core;
     use App\Http\Route;
 
-    Route::get('/','HomeController@index');
-
-    print_r(Route::routes()); 
-
+    Core::dispatch(Route::routes());
 ?>

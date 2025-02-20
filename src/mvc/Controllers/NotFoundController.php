@@ -9,7 +9,7 @@ class NotFoundController
         $response::json([
             'erro' => true,
             'success' => false,
-            'message' => 'Desculpe, Rota não encontrada :(' 
+            'message' => 'Desculpe, Rota não encontrada.'
         ],404);
 
         return;

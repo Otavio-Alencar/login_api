@@ -3,6 +3,7 @@
 namespace App\Controllers;
 use App\Http\Request;
 use App\Http\Response;
+use App\Models\Database;
 
 class UserController
 {
@@ -33,4 +34,8 @@ class UserController
     public static function remove(){
         
     }
+
+
+
+
 }

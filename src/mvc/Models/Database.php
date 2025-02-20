@@ -7,7 +7,7 @@ use PDO;
 class Database
 {
     public static function getConection(){
-        $pdo = new PDO("mysql:dbname=login_system;host=localhost","user","root");
+        $pdo = new PDO("mysql:dbname=login_system;host=db","user","root");
         return $pdo;
     }
 }

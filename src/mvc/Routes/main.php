@@ -9,4 +9,4 @@ Route::get('/users/fetch',          'UserController@fetch');
 Route::get('/db/table',          'DBController@newTable');
 Route::get('/db/table/delete',          'DBController@removeTable');
 Route::put('/users/update',         'UserController@update');
-Route::delete('/users/{id}/delete', 'UserController@remove');
+Route::delete('/users/delete', 'UserController@remove');

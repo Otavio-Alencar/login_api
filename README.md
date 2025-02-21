@@ -6,14 +6,32 @@
 
 
 ---
-</br>
+
 
 ### Comandos para funcionamento
 > [!IMPORTANT]
 > A unica ferramenta que o usuário deve ter em sua máquina para o funcionamento desse projeto é o docker.
-### Comandos para funcionamento
+
 
 ##### No seu terminal linux ou wsl digite
 ```bash
+    cd docker
     docker compose up
 ```
+
+---
+### Rotas
+
+
+#### <span style="color: #87ceeb;">GET ('/')</span>
+
+#### <span style="color: #84fa84;">POST ('/users/create')</span>
+
+#### <span style="color: #84fa84;">POST ('/users/login')</span>
+#### <span style="color: #87ceeb;">GET('/users/fetch')</span>
+#### <span style="color: #87ceeb;">GET('/db/table')</span>
+#### <span style="color: #87ceeb;">GET ('/db/table/delete')</span>
+#### <span style="color: #e5f28c ;">PUT('/users/update')</span>
+#### <span style="color: #a52a2a;">DELETE('/users/delete')</span>
+
+---

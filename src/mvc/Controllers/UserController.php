@@ -19,10 +19,29 @@ class UserController
     }
     public function fetch(Request $request, Response $response)
     {
+        $authorization = $request::authorization();
+        $userService  = UserService::fetch($authorization);
+
+        if (isset($userService['unauthorized'])) {
+            $response::json([
+                'error'   => true,
+                'success' => false,
+                'message' => $userService['unauthorized']
+            ], 401);
+            return;
+        }
+        if(isset($userService['error'])){
+            $response::json([
+                "error" => true,
+                "success" => false,
+                "menssage" => $userService['error'],
+            ],400);
+            return;
+        }
         $response::json([
-            "error" => false,
+            "data" => $userService,
             "success" => true,
-            "menssage" => "aqui estão seus usuarios..."
+            "error" => false,
         ],200);
         return;
     }
@@ -50,11 +69,11 @@ class UserController
     public static function login(Request $request, Response $response){
         $body = $request::body();
         $userservice =  UserService::auth($body);
-        if(isset($user['error'])){
+        if(isset($userservice['error'])){
             $response::json([
                 "error" => true,
                 "success" => false,
-                "menssage" => $user,
+                "menssage" => $userservice['error'],
             ],400);
             return;
         }
@@ -67,8 +86,33 @@ class UserController
         return;
 
     }
-    public static function edit(){
-        
+    public static function update(Request $request, Response $response){
+        $body = $request::body();
+        $authorization = $request::authorization();
+        $userService = UserService::update($authorization,$body);
+
+        if (isset($userService['unauthorized'])) {
+            $response::json([
+                'error'   => true,
+                'success' => false,
+                'message' => $userService['unauthorized']
+            ], 401);
+            return;
+        }
+        if(isset($userService['error'])){
+            $response::json([
+                "error" => true,
+                "success" => false,
+                "menssage" => $userService['error'],
+            ],400);
+            return;
+        }
+        $response::json([
+            "menssage" => $userService,
+            "success" => true,
+            "error" => false,
+        ],200);
+        return;
     }
     public static function remove(){
         

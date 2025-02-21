@@ -16,11 +16,18 @@ class User extends Database{
 
     public static function authenticate(array $data){
         $pdo = self::getConection();
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt = $pdo->prepare("
+            SELECT 
+                * 
+            FROM 
+                users 
+            WHERE 
+                email = ?
+        ");
 
         $stmt->execute([$data['email']]);
 
-        if($stmt->rowCount() <= 0) return false;
+        if($stmt->rowCount() < 1) return false;
 
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -32,5 +39,39 @@ class User extends Database{
             'email' => $user['email']
         ];
 
+    }
+
+    public static function getUserById(int|string $id){
+        $pdo = self::getConection();
+
+        $stmt = $pdo->prepare('
+            SELECT 
+                id, name, email
+            FROM 
+                users
+            WHERE 
+                id = ?
+        ');
+
+        $stmt->execute([$id]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public static function edit(array $data,int|string $id){
+        $pdo = self::getConection();
+
+        $stmt = $pdo->prepare('
+            UPDATE 
+                users
+            SET 
+                name = ?
+            WHERE 
+                id = ?
+        ');
+
+        $stmt->execute([$data['name'], $id]);
+
+        return $stmt->rowCount() > 0 ? true : false;
     }
 }

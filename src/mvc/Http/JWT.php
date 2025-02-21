@@ -16,6 +16,14 @@ class JWT
         $jwt = $headerbase64 . '.' . $payloadbase64 . '.' . $signature;
         return $jwt;
     }
+    public static function verify(string $jwt){
+        $auth = explode('.', $jwt);
+        if(count($auth) != 3) return false;
+        [$header, $payload, $signature] = $auth;
+        if($signature !== self::signature($header, $payload)) return false;
+        return self::base64url_decode($payload);
+
+    }
     public static function signature(string $header, string $payload){
         $signature = hash_hmac('sha256', $payload. '.'. $header,self::$secret, true);
         return self::base64url_encode($signature);
@@ -26,9 +34,14 @@ class JWT
 
     }
 
-    public static function base64url_decode($data) {
+    public static function base64url_decode($data)
+    {
+        $padding = strlen($data) % 4;
 
-        return json_decode(base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT)));
+        $padding !== 0 && $data .= str_repeat('=', 4 -  $padding);
 
+        $data = strtr($data, '-_', '+/');
+
+        return json_decode(base64_decode($data), true);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Http\Request;
 use App\Utils\Validator;
 use App\Models\User;
 use App\Http\JWT;
@@ -47,6 +48,57 @@ class UserService
             return ['error'=> $e->getMessage()];
         }
 
+    }
+
+    public static function fetch(mixed $authorization){
+        try{
+            if(isset($authorization['error'])){
+                return ['unauthorized' => $authorization['error']];
+            }
+
+            $userfromJWT = JWT::verify($authorization);
+
+            if(!$userfromJWT) return ['unauthorized' => 'Não encontramos este usuário'];
+
+            $user = User::getUserById($userfromJWT['id']);
+            if(!$user) return ['error' => 'Não encontramos este usuário'];
+
+            return $user;
+        }catch(\PDOException $e){
+            if($e->errorInfo[0] === 'HY000') return ['error'=>'Houve algum problema na conexão com o banco de dados.'];
+            return ['error' => $e->errorInfo[0]];
+        }catch (\Exception $e){
+            return ['error'=> $e->getMessage()];
+        }
+    }
+
+    public static function update(mixed $authorization,array $data){
+        try {
+            if (isset($authorization['error'])) {
+                return ['unauthorized'=> $authorization['error']];
+            }
+
+            $userFromJWT = JWT::verify($authorization);
+
+            if (!$userFromJWT) return ['unauthorized' => 'Não encontramos este usuário'];
+
+            $fields = Validator::validateUser([
+                'name' => $data['name'] ?? ''
+            ]);
+
+            $user = User::edit($fields,$userFromJWT['id']);
+
+            if (!$user) return ['error'=> 'Desculpe, não foi possível atualizar sua conta.'];
+
+            return "Usuário atualizado com sucesso!";
+        }
+        catch (PDOException $e) {
+            if ($e->errorInfo[0] === '08006') return ['error' => 'Sorry, we could not connect to the database.'];
+            return ['error' => $e->getMessage()];
+        }
+        catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
     }
 
 

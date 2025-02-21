@@ -114,8 +114,32 @@ class UserController
         ],200);
         return;
     }
-    public static function remove(){
-        
+    public static function remove(Request $request, Response $response){
+        $authorization = $request::authorization();
+        $userService = UserService::delete($authorization);
+
+        if (isset($userService['unauthorized'])) {
+            $response::json([
+                'error'   => true,
+                'success' => false,
+                'message' => $userService['unauthorized']
+            ], 401);
+            return;
+        }
+        if(isset($userService['error'])){
+            $response::json([
+                "error" => true,
+                "success" => false,
+                "menssage" => $userService['error'],
+            ],400);
+            return;
+        }
+        $response::json([
+            "menssage" => $userService,
+            "success" => true,
+            "error" => false,
+        ],200);
+        return;
     }
 
 

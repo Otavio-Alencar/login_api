@@ -101,5 +101,32 @@ class UserService
         }
     }
 
+    public static function delete(mixed $authorization){
+        try {
+            if (isset($authorization['error'])) {
+                return ['unauthorized'=> $authorization['error']];
+            }
+
+            $userFromJWT = JWT::verify($authorization);
+
+            if (!$userFromJWT) return ['unauthorized' => 'Não encontramos este usuário'];
+
+
+
+            $user = User::remove($userFromJWT['id']);
+
+            if (!$user) return ['error'=> 'Desculpe, não foi possível remover sua conta.'];
+
+            return "Usuário excluido com sucesso!";
+        }
+        catch (PDOException $e) {
+            if ($e->errorInfo[0] === '08006') return ['error' => 'Sorry, we could not connect to the database.'];
+            return ['error' => $e->getMessage()];
+        }
+        catch (Exception $e) {
+            return ['error' => $e->getMessage()];
+        }
+    }
+
 
 }

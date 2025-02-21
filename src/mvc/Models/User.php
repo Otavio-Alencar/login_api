@@ -74,4 +74,11 @@ class User extends Database{
 
         return $stmt->rowCount() > 0 ? true : false;
     }
+
+    public static function remove(int|string $id){
+        $pdo = self::getConection();
+        $stmt = $pdo->prepare('DELETE FROM users WHERE id = ?');
+        $stmt->execute([$id]);
+        return $stmt->rowCount() > 0 ? true : false;
+    }
 }

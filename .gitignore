@@ -16,9 +16,8 @@ composer.lock
 
 # Configurações do ambiente
 src/.env
-.env.local
-.env.*
-!.env.example
+docker/.env
+
 
 # Docker
 docker-compose.override.yml

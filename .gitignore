@@ -15,7 +15,7 @@ vendor/
 composer.lock
 
 # Configurações do ambiente
-.env
+src/.env
 .env.local
 .env.*
 !.env.example

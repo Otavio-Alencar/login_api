@@ -18,6 +18,7 @@
     cd docker
     docker compose up
 ```
+ Na pasta docker crie um arquivo chamado .env e cole tudo que estiver dentro do .env.example, caso queira mudar as  variáveis mude as informações também no arquivo Database.php.
 
 ---
 ### Rotas
